@@ -26,7 +26,7 @@ class MaintenanceAuto(models.Model):
     subcontract = fields.Boolean(string="Subcontract")
     partner_id = fields.Many2one('res.partner', string="Vendor", domain="[('supplier', '=', True)]")
     product_id = fields.Many2one('product.product', string="Product")
-    raise_request = fields.Boolean(string="Subcontract", default=True)
+    raise_request = fields.Boolean(string="Raise Request", default=True)
 
     @api.onchange('maintenance_name_id')
     def onchange_maintenance_name_id(self):
@@ -36,7 +36,7 @@ class MaintenanceAuto(models.Model):
 
     @api.model
     def create_maintenance(self):
-        auto_ids = self.search([('subcontract', '=', True)])
+        auto_ids = self.search([('raise_request', '=', True)])
         MT = self.env['maintenance.team']
         team = MT.sudo().search([('company_id', '=', self.env.user.company_id.id)], limit=1)
         if not team:
