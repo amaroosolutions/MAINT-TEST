@@ -54,7 +54,7 @@ class MaintenanceAuto(models.Model):
                             'owner_user_id': SUPERUSER_ID,
                             'request_date': fields.Date.today(),
                             'maintenance_team_id': team.id,
-                            'schedule_date': auto.next_due_date,
+                            
                             'duration': auto.period,
                             'maintenance_auto_id': auto.id,
                             'close_date': auto.next_due_date
