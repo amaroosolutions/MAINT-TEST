@@ -116,8 +116,8 @@ class MaintenanceRequest(models.Model):
         return res
 
     @api.multi
-    def action_create_po(self,vals):
-        po_ids = self.mapped('po_line_ids').mapped('order_id').mapped('state', 'not in', ['sent', 'draft'])
+    def action_create_po(self):
+        po_ids = self.mapped('po_line_ids').mapped('state', 'not in', ['sent', 'draft'])
         if po_ids:
             raise UserError(_('Only one purchase order is allowed for each maintenance request.'))
         action = self.env.ref('purchase.purchase_rfq').read()[0]
