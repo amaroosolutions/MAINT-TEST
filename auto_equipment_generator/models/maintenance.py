@@ -49,7 +49,7 @@ class MaintenanceAuto(models.Model):
                 diff = due_date - current_date
                 if diff.days == auto.maintenance_name_id.new_request_generator_days:
                     maintenance_id = self.env['maintenance.request'].create({
-                            'name': auto.equipment_id + auto.maintenance_name_id.name,
+                            'name': auto.equipment_id.name auto.maintenance_name_id.name,
                             'equipment_id': auto.equipment_id.id,
                             'owner_user_id': SUPERUSER_ID,
                             'request_date': fields.Date.today(),
