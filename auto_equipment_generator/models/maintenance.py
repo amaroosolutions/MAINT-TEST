@@ -109,7 +109,7 @@ class MaintenanceRequest(models.Model):
                 auto_id = vals.get('maintenance_auto_id', rec.maintenance_auto_id.id)
                 if auto_id:
                     maintenance_auto_id = self.env['maintenance.auto'].browse(auto_id)
-                    maintenance_auto_id.last_date = vals['close_date']
+                    maintenance_auto_id.next_due_date = vals['close_date']
         res = super(MaintenanceRequest, self).write(vals)
         if 'stage_id' in vals:
             self.filtered(lambda m: m.stage_id.done).write({'close_date': close_date})
