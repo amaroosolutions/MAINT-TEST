@@ -9,7 +9,7 @@ from odoo.exceptions import UserError
 class MaintenanceAuto(models.Model):
     _name = 'maintenance.auto'
     _rec_name = 'maintenance_name_id'
-    _description = 'Maintenance Type'
+    _description = 'Maintenance Type'
 
     @api.multi
     def compute_next_due_date(self):
@@ -49,12 +49,12 @@ class MaintenanceAuto(models.Model):
                 diff = due_date - current_date
                 if diff.days == auto.maintenance_name_id.new_request_generator_days:
                     maintenance_id = self.env['maintenance.request'].create({
-                            'name': auto.equipment_id.name + ' ' + auto.maintenance_name_id.name,
+                            'name': auto.maintenance_name_id.name + ' Request',
                             'equipment_id': auto.equipment_id.id,
                             'owner_user_id': SUPERUSER_ID,
                             'request_date': fields.Date.today(),
                             'maintenance_team_id': team.id,
-                            
+                            'schedule_date': auto.next_due_date,
                             'duration': auto.period,
                             'maintenance_auto_id': auto.id,
                             'close_date': auto.next_due_date
@@ -86,7 +86,7 @@ class MaintenanceRequest(models.Model):
         for rec in self:
             rec.count_po = len(rec.po_line_ids.mapped('order_id'))
 
-    maintenance_auto_id = fields.Many2one('maintenance.auto', string="Maintenance Type")
+    maintenance_auto_id = fields.Many2one('maintenance.auto', string="Maintenance Type")
     po_ids = fields.One2many('purchase.order', 'maintenance_id', string="Purchases")
     po_line_ids = fields.One2many('purchase.order.line', 'maintenance_id', string="Purchases")
     count_po = fields.Integer(string="POS", compute="count_pos")
