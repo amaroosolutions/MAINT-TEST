@@ -22,7 +22,7 @@ class MaintenanceAuto(models.Model):
     period = fields.Integer('Frequency (Days)', default=10)
     maintenance_duration = fields.Float(help="Duration Hours.")
     last_date = fields.Date(string="Last Date", default=fields.Date.today())
-    next_due_date = fields.Date(string="Next Due Date", compute="compute_next_due_date", store=True)
+    next_due_date = fields.Date(string="Next Due Date", compute="compute_next_due_date", store='True')
     subcontract = fields.Boolean(string="Subcontract")
     partner_id = fields.Many2one('res.partner', string="Vendor", domain="[('supplier', '=', True)]")
     product_id = fields.Many2one('product.product', string="Product")
