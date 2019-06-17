@@ -26,7 +26,7 @@ class MaintenanceAuto(models.Model):
     subcontract = fields.Boolean(string="Subcontract")
     partner_id = fields.Many2one('res.partner', string="Vendor", domain="[('supplier', '=', True)]")
     product_id = fields.Many2one('product.product', string="Product")
-	raise_request = fields.Boolean(string="Subcontract", default=True)
+    raise_request = fields.Boolean(string="Subcontract", default=True)
 
     @api.onchange('maintenance_name_id')
     def onchange_maintenance_name_id(self):
