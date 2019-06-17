@@ -97,7 +97,7 @@ class MaintenanceRequest(models.Model):
     @api.onchange('maintenance_auto_id')
     def onchange_maintenance_auto_id(self):
         if self.maintenance_auto_id and self.maintenance_auto_id.last_date:
-            self.close_date = self.maintenance_auto_id.last_date
+            self.close_date = self.maintenance_auto_id.next_due_date
 
     @api.multi
     def write(self, vals):
